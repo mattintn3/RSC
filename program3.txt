@@ -1,0 +1,61 @@
+; Average of All Even Numbers from 1 to 100
+
+JMP main
+
+; Variables
+
+cur_val: 0	;
+tot_val: 0	;
+inc_val: 2	; Incrementing value
+max_val: 66  
+div_val: 32
+
+OUT_ANS: 0
+
+
+
+main: 
+
+
+
+
+add_loop:
+						; Adding cur_val to tot_val
+	LDAC cur_val	
+	MVAC				; cur_val is in R
+	LDAC tot_val		; tot_val in ACC
+	ADD					; ACC = tot_val + cur_val
+	STAC tot_val    	; storing ACC to tot_val
+	
+	LDAC inc_val		; storing 2 in ACC
+	ADD				
+	STAC cur_val	
+	
+	LDAC max_val		; load max_val into ACC
+	MVAC				; moving max_val to R
+	LDAC cur_val    	; load cur_val into ACC
+	SUB 				; ACC = ACC - R
+	JMPZ end_add_loop	; repeat loop 
+	JMP add_loop
+	
+
+end_add_loop: 
+	CLAC				; clearing ACC to 0
+	STAC cur_val    	
+
+div_loop:
+	LDAC div_val		; load div_val to ACC
+	MVAC				; moving div_val to R
+	LDAC tot_val  		; ACC = tot_val
+	JMPZ end_div_loop	; jump to end of loop
+	SUB					; SUB tot_val - div_val
+	STAC tot_val		; tot_val = ACC
+	LDAC cur_val
+	INC					; increment cur_val
+	STAC cur_val		; store ACC to cur_val
+	JMP div_loop		; loop back to top of div_loop
+
+end_div_loop:
+	LDAC cur_val		; store ACC to cur_val
+	OUT
+	HALT

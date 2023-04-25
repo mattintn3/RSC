@@ -1,0 +1,99 @@
+; Program 2
+
+; Use every instruction available, minus jump and jumpz
+; HALT, LDAC, STAC, MVAC, MOVR, OUT, SUB, ADD, INC, CLAC, AND, OR, ASHR, NOT
+;  ^      ^     ^     ^     ^    ^    ^    ^    ^     ^    ^   ^    ^    ^ 
+
+JMP start
+
+; Variables
+var1: A9    ; 169
+var2: 2B    ; 43
+var3: AF    ; 175
+var4: D1    ; 209
+OUT_ADD:  0 ; making memory space for each operation output
+OUT_SUB:  0
+OUT_AND:  0
+OUT_OR:   0
+OUT_ASHR: 0
+OUT_INC:  0
+OUT_NOT:  0
+
+; start program operations
+
+start:
+    ; ADDITION
+    LDAC var1     ; load var1 to ACC
+    MVAC          ; move ACC to R
+    LDAC var2     ; load var2 to ACC
+    ADD           ; ACC = 2B + A9
+    STAC OUT_ADD  ; store ACC to memory
+    CLAC          ; clearing ACC
+
+    ; SUBTRACTION
+    LDAC var2     ; load var2 to ACC
+    MVAC          ; move ACC to R
+    LDAC var1     ; load var1 to ACC
+    SUB           ; ACC = ACC - R
+    STAC OUT_SUB  ; store ACC to memory
+    CLAC          ; clearing ACC
+    
+    ; AND
+    LDAC var1     ; load var1 to ACC
+    MVAC          ; move ACC to R
+    LDAC var2     ; load var2 to ACC
+    AND           ; ACC = ACC & R
+    STAC OUT_AND  ; store ACC to memory
+    CLAC          ; clearing ACC
+    
+    ; OR
+    LDAC var1     ; load var1 to ACC
+    MVAC          ; move ACC to R
+    LDAC var2     ; load var2 to ACC
+    OR            ; ACC OR R
+    STAC OUT_OR   ; store ACC to memory
+    CLAC          ; clearing ACC
+    
+    ; ASHR
+    LDAC var1     ; load var1 to ACC
+    ASHR          ; ACC = ACC >> 1
+    STAC OUT_ASHR ; store ACC to memory
+    CLAC          ; clearing ACC
+    
+    ; INC
+    LDAC var3     ; load var3 to ACC
+    INC           ; ACC = ACC + 1
+    STAC OUT_INC  ; store ACC to memory
+    CLAC          ; clearing ACC
+    
+    ; NOT
+    LDAC var4     ; load var4 to ACC
+    MVAC          ; ACC to R
+    MOVR          ; R back to ACC 
+    NOT           ; ACC = ~ACC
+    STAC OUT_NOT  ; store ACC to memory
+    CLAC          ; clearing ACC
+
+    ; OUTPUT SECTION
+    LDAC OUT_ADD  ; load and output addtion
+    OUT
+
+    LDAC OUT_SUB  ; load and output subtraction
+    OUT
+    
+    LDAC OUT_AND  ; load and output and
+    OUT
+    
+    LDAC OUT_OR   ; load and output or
+    OUT
+
+    LDAC OUT_ASHR ; load and output ashr
+    OUT
+    
+    LDAC OUT_INC  ; load and output inc
+    OUT
+  
+    LDAC OUT_NOT  ; load and output not
+    OUT
+
+    HALT          ; end of program

@@ -1,0 +1,13 @@
+; Program 1
+JMP start
+; Variables
+var1: A   ; 10 in hex
+var2: F   ; 15 in hex
+; start of operations
+start:    ; start label from jump start
+LDAC var1 ; load first variable into ACC
+MVAC      ; move ACC to R
+LDAC var2 ; load second variable into ACC
+SUB       ; subtract ACC and R, result stored in ACC
+OUT       ; send ACC to output register
+HALT      ; stop program
